@@ -9,10 +9,10 @@ from simplet5 import SimpleT5
 # instantiate
 model = SimpleT5()
 
-# load any T5 model
+# load
 model.from_pretrained("t5","t5-base")
 
-# train on custom dataset: 
+# train
 model.train(train_df=train_df, # pandas dataframe with 2 columns: source_text & target_text
             eval_df=eval_df, # pandas dataframe with 2 columns: source_text & target_text
             source_max_token_len = 512, 
@@ -24,7 +24,7 @@ model.train(train_df=train_df, # pandas dataframe with 2 columns: source_text & 
             early_stopping_patience_epochs = 0
             )
 
-# load trained model for prediction
+# load trained T5 model
 model.load_model("t5","path/to/trained/model/directory", use_gpu=False)
 
 # predict
