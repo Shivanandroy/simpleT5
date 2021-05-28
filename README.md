@@ -1,6 +1,13 @@
-# simpleT5
-simpleT5 is built on top of PyTorch and Transformers that lets you quickly train T5 models.
+![fastt5 icon](data/simplet5.png)
+
+
+<h2 style="text-align:center; font-weight: bold">
+ Quickly train T5 models in just 3 lines of code + ONNX support
+</h2>
+
+`simpleT5` is built on top of `pyTorch-lightning`⚡️ and `Transformers`🤗 that lets you quickly train your T5 models.
 > T5 models can be used for several NLP tasks such as summarization, QA, QG, translation, text generation, and more. 
+
 
 ```python
 # import
