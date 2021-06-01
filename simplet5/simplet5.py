@@ -24,7 +24,7 @@ pl.seed_everything(42)
 
 
 class PyTorchDataModule(Dataset):
-    """ PyTorch Dataset class """
+    """  PyTorch Dataset class  """
 
     def __init__(
         self,
