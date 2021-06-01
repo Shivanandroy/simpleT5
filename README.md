@@ -1,4 +1,4 @@
-![fastt5 icon](data/simplet5.png)
+![simplet5](data/simplet5.png)
 
 
 <h3 style="text-align:center; font-weight: bold">
@@ -8,7 +8,13 @@
 **simpleT5** is built on top of PyTorch-lightning⚡️ and Transformers🤗 that lets you quickly train your T5 models.
 > T5 models can be used for several NLP tasks such as summarization, QA, QG, translation, text generation, and more. 
 
+## Install
+```python
+pip install --upgrade simplet5
+```
 
+
+## Usage
 ```python
 # import
 from simplet5 import SimpleT5
