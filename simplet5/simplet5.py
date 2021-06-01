@@ -372,15 +372,11 @@ class SimpleT5:
             use_gpu (bool, optional): if True, model uses gpu for inferencing/prediction. Defaults to True.
         """
         if model_type == "t5":
-            self.trained_model = T5ForConditionalGeneration.from_pretrained(
-                f"{model_dir}"
-            )
-            self.trained_tokenizer = T5Tokenizer.from_pretrained(f"{model_dir}")
+            self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+            self.tokenizer = T5Tokenizer.from_pretrained(f"{model_dir}")
         elif model_type == "mt5":
-            self.trained_model = MT5ForConditionalGeneration.from_pretrained(
-                f"{model_dir}"
-            )
-            self.trained_tokenizer = MT5Tokenizer.from_pretrained(f"{model_dir}")
+            self.model = MT5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+            self.tokenizer = MT5Tokenizer.from_pretrained(f"{model_dir}")
 
         if use_gpu:
             if torch.cuda.is_available():
@@ -390,7 +386,7 @@ class SimpleT5:
         else:
             self.device = torch.device("cpu")
 
-        self.trained_model = self.trained_model.to(self.device)
+        self.model = self.model.to(self.device)
 
     def predict(
         self,
@@ -427,12 +423,12 @@ class SimpleT5:
         Returns:
             list[str]: returns predictions
         """
-        input_ids = self.trained_tokenizer.encode(
+        input_ids = self.tokenizer.encode(
             source_text, return_tensors="pt", add_special_tokens=True
         )
 
         input_ids = input_ids.to(self.device)
-        generated_ids = self.trained_model.generate(
+        generated_ids = self.model.generate(
             input_ids=input_ids,
             num_beams=num_beams,
             max_length=max_length,
@@ -444,7 +440,7 @@ class SimpleT5:
             num_return_sequences=num_return_sequences,
         )
         preds = [
-            self.trained_tokenizer.decode(
+            self.tokenizer.decode(
                 g,
                 skip_special_tokens=skip_special_tokens,
                 clean_up_tokenization_spaces=clean_up_tokenization_spaces,
