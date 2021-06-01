@@ -8,7 +8,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setuptools.setup(
     name="simplet5",
-    version="0.0.8",
+    version="0.0.7",
     license="apache-2.0",
     author="Shivanand Roy",
     author_email="shivanandroy.official@gmail.com",
