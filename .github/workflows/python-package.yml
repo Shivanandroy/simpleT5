@@ -1,6 +1,11 @@
 name: Publish simpleT5 to PyPI and TestPyPI
 
-on: push
+on:
+    push:
+    branches: [ main ]
+    pull_request:
+    branches: [ main ]
+
 
 jobs:
   build-n-publish:
@@ -18,15 +23,13 @@ jobs:
         run: >-
           python setup.py sdist
       - name: Publish distribution to Test PyPI
-        if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_PASSWORD }}
           repository_url: https://test.pypi.org/legacy/
-      - name: Publish distribution to PyPI
-        if: startsWith(github.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@master
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_PASSWORD }}
+          password: ${{ secrets.PYPI_API_TOKEN }}
