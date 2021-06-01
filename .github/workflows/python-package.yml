@@ -1,10 +1,10 @@
 name: Publish simpleT5 to PyPI and TestPyPI
 
 on:
-    push:
-    branches: [ main ]
-    pull_request:
-    branches: [ main ]
+  push:
+  branches: [ main ]
+  pull_request:
+  branches: [ main ]
 
 
 jobs:
