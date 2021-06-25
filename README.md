@@ -1,4 +1,4 @@
-<img align="center" src="data/st5.png" alt="simpleT5">
+<img align="center" src="data/simplet5.png" alt="simpleT5">
 
 <h3 style="text-align:center; font-weight: bold">
  Quickly train T5 models in just 3 lines of code + ONNX support
