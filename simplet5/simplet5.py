@@ -14,7 +14,6 @@ from fastT5 import export_and_get_onnx_model
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoModelWithLMHead, AutoTokenizer
 import pytorch_lightning as pl
-from sklearn.model_selection import train_test_split
 from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
