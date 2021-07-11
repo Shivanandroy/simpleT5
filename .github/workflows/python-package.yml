@@ -1,9 +1,9 @@
 name: Publish simpleT5 to PyPI and TestPyPI
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
-  push:
+  # This workflows will upload a Python Package using Twine when a release is created
+  release:
+    types: [created]
     branches:
       - uat
 
@@ -24,14 +24,12 @@ jobs:
         run: >-
           python setup.py sdist
       - name: Publish distribution to Test PyPI 
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_PASSWORD }}
           repository_url: https://test.pypi.org/legacy/
       - name: Publish a Python distribution to PyPI
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
