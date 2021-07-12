@@ -6,8 +6,10 @@ from transformers import (
     AdamW,
     T5ForConditionalGeneration,
     MT5ForConditionalGeneration,
+    Tokenizer,
     T5TokenizerFast as T5Tokenizer,
     MT5TokenizerFast as MT5Tokenizer,
+    ByT5Tokenizer,
 )
 from transformers import AutoTokenizer
 from fastT5 import export_and_get_onnx_model
@@ -28,7 +30,7 @@ class PyTorchDataModule(Dataset):
     def __init__(
         self,
         data: pd.DataFrame,
-        tokenizer: T5Tokenizer,
+        tokenizer: Tokenizer,
         source_max_token_len: int = 512,
         target_max_token_len: int = 512,
     ):
@@ -37,7 +39,7 @@ class PyTorchDataModule(Dataset):
 
         Args:
             data (pd.DataFrame): input pandas dataframe. Dataframe must have 2 column --> "source_text" and "target_text"
-            tokenizer (T5Tokenizer): a T5 tokenizer
+            tokenizer (Tokenizer): a Tokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
             source_max_token_len (int, optional): max token length of source text. Defaults to 512.
             target_max_token_len (int, optional): max token length of target text. Defaults to 512.
         """
@@ -98,7 +100,7 @@ class LightningDataModule(pl.LightningDataModule):
         self,
         train_df: pd.DataFrame,
         test_df: pd.DataFrame,
-        tokenizer: T5Tokenizer,
+        tokenizer: Tokenizer,
         batch_size: int = 4,
         source_max_token_len: int = 512,
         target_max_token_len: int = 512,
@@ -109,7 +111,7 @@ class LightningDataModule(pl.LightningDataModule):
         Args:
             train_df (pd.DataFrame): training dataframe. Dataframe must contain 2 columns --> "source_text" & "target_text"
             test_df (pd.DataFrame): validation dataframe. Dataframe must contain 2 columns --> "source_text" & "target_text"
-            tokenizer (T5Tokenizer): T5Toeknizer
+            tokenizer (Tokenizer): Tokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
             batch_size (int, optional): batch size. Defaults to 4.
             source_max_token_len (int, optional): max token length of source text. Defaults to 512.
             target_max_token_len (int, optional): max token length of target text. Defaults to 512.
@@ -164,8 +166,8 @@ class LightningModel(pl.LightningModule):
         initiates a PyTorch Lightning Model
 
         Args:
-            tokenizer : T5/MT5 tokenizer
-            model : T5/MT5 model
+            tokenizer : T5/MT5/ByT5 tokenizer
+            model : T5/MT5/ByT5 model
             outputdir (str, optional): output directory to save model checkpoints. Defaults to "outputs".
         """
         super().__init__()
@@ -276,9 +278,14 @@ class SimpleT5:
             self.model = T5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
-        if model_type == "mt5":
+        elif model_type == "mt5":
             self.tokenizer = MT5Tokenizer.from_pretrained(f"{model_name}")
             self.model = MT5ForConditionalGeneration.from_pretrained(
+                f"{model_name}", return_dict=True
+            )
+        elif model_type == "byt5":
+            self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_name}")
+            self.model = T5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
 
@@ -376,6 +383,9 @@ class SimpleT5:
         elif model_type == "mt5":
             self.model = MT5ForConditionalGeneration.from_pretrained(f"{model_dir}")
             self.tokenizer = MT5Tokenizer.from_pretrained(f"{model_dir}")
+        elif model_type == "byt5":
+            self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+            self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
 
         if use_gpu:
             if torch.cuda.is_available():
