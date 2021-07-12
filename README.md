@@ -4,6 +4,7 @@
 <h3 style="text-align:center; font-weight: bold">
  Quickly train T5 models in just 3 lines of code + ONNX support
 </h3>
+</p>
 
 [![PyPI version](https://badge.fury.io/py/simplet5.svg)](https://badge.fury.io/py/simplet5) ![](https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  [![Downloads](https://static.pepy.tech/personalized-badge/simplet5?period=month&units=international_system&left_color=black&right_color=orange&left_text=downloads/month)](https://pepy.tech/project/simplet5)
 
