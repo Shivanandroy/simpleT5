@@ -1,6 +1,6 @@
 pandas
 sentencepiece
 torch>=1.7.0,!=1.8.0
-transformers==4.6.1
+transformers==4.7.0
 pytorch-lightning==1.3.3
 fastt5==0.0.5
