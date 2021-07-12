@@ -6,7 +6,7 @@ from transformers import (
     AdamW,
     T5ForConditionalGeneration,
     MT5ForConditionalGeneration,
-    Tokenizer,
+    PreTrainedTokenizer,
     T5TokenizerFast as T5Tokenizer,
     MT5TokenizerFast as MT5Tokenizer,
     ByT5Tokenizer,
@@ -30,7 +30,7 @@ class PyTorchDataModule(Dataset):
     def __init__(
         self,
         data: pd.DataFrame,
-        tokenizer: Tokenizer,
+        tokenizer: PreTrainedTokenizer,
         source_max_token_len: int = 512,
         target_max_token_len: int = 512,
     ):
@@ -39,7 +39,7 @@ class PyTorchDataModule(Dataset):
 
         Args:
             data (pd.DataFrame): input pandas dataframe. Dataframe must have 2 column --> "source_text" and "target_text"
-            tokenizer (Tokenizer): a Tokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
+            tokenizer (PreTrainedTokenizer): a PreTrainedTokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
             source_max_token_len (int, optional): max token length of source text. Defaults to 512.
             target_max_token_len (int, optional): max token length of target text. Defaults to 512.
         """
@@ -100,7 +100,7 @@ class LightningDataModule(pl.LightningDataModule):
         self,
         train_df: pd.DataFrame,
         test_df: pd.DataFrame,
-        tokenizer: Tokenizer,
+        tokenizer: PreTrainedTokenizer,
         batch_size: int = 4,
         source_max_token_len: int = 512,
         target_max_token_len: int = 512,
@@ -111,7 +111,7 @@ class LightningDataModule(pl.LightningDataModule):
         Args:
             train_df (pd.DataFrame): training dataframe. Dataframe must contain 2 columns --> "source_text" & "target_text"
             test_df (pd.DataFrame): validation dataframe. Dataframe must contain 2 columns --> "source_text" & "target_text"
-            tokenizer (Tokenizer): Tokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
+            tokenizer (PreTrainedTokenizer): PreTrainedTokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
             batch_size (int, optional): batch size. Defaults to 4.
             source_max_token_len (int, optional): max token length of source text. Defaults to 512.
             target_max_token_len (int, optional): max token length of target text. Defaults to 512.
