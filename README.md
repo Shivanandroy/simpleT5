@@ -5,7 +5,8 @@
 </h3>
 
 
-[![PyPI version](https://badge.fury.io/py/simplet5.svg)](https://badge.fury.io/py/simplet5)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![PyPI version](https://badge.fury.io/py/simplet5.svg)](https://badge.fury.io/py/simplet5) ![](https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  [![Downloads](https://static.pepy.tech/personalized-badge/simplet5?period=month&units=international_system&left_color=black&right_color=orange&left_text=downloads/month)](https://pepy.tech/project/simplet5) 
+
 
 
 **simpleT5** is built on top of PyTorch-lightning⚡️ and Transformers🤗 that lets you quickly train your T5 models.
@@ -55,3 +56,14 @@ model.convert_and_load_onnx_model("path/to/T5 model/directory")
 model.onnx_predict("input text for prediction")
 
 ```
+## Articles
+- [Geek Culture: simpleT5 — Train T5 Models in Just 3 Lines of Code](https://medium.com/geekculture/simplet5-train-t5-models-in-just-3-lines-of-code-by-shivanand-roy-2021-354df5ae46ba)
+- [Abstractive Summarization with SimpleT5⚡️](https://snrspeaks.medium.com/abstractive-summarization-with-simplet5-%EF%B8%8F-344a78f73265)
+- [Training T5 model in just 3 lines of Code with ONNX Inference](https://medium.com/mlearning-ai/training-t5-model-in-just-3-lines-of-code-with-onnx-inference-ff5b6678c757)
+- [Kaggle: simpleT5⚡️ -  Generating one line summary of papers](https://www.kaggle.com/mathurinache/simplet5-generating-one-line-summary-of-papers)
+- [Youtube: Abstractive Summarization Demo with SimpleT5](https://www.youtube.com/watch?v=jgKj-7v2UYU)
+
+## Acknowledgements
+- [Transformers by HuggingFace 🤗](https://huggingface.co/transformers/)
+- [Pytorch Lightning ⚡️](https://www.pytorchlightning.ai/)
+- [Fastt5](https://github.com/Ki6an/fastT5)
