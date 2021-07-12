@@ -1,10 +1,22 @@
 <img align="center" src="data/simplet5.png" alt="simpleT5">
 
 
-<h3 align="center">Quickly train T5 models in just 3 lines of code + ONNX support</h3>
+<h3 style="text-align:center; font-weight: bold">Quickly train T5 models in just 3 lines of code + ONNX support</h3>
 
-
-[![PyPI version](https://badge.fury.io/py/simplet5.svg)](https://badge.fury.io/py/simplet5) ![](https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  [![Downloads](https://static.pepy.tech/personalized-badge/simplet5?period=month&units=international_system&left_color=black&right_color=orange&left_text=downloads/month)](https://pepy.tech/project/simplet5)
+<p align="center">
+<a href="https://badge.fury.io/py/simplet5">
+        <img alt="GitHub" src="https://badge.fury.io/py/simplet5.svg">
+    </a>
+<a href="https://badge.fury.io/py/simplet5">
+        <img alt="Stars" src="https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue">
+    </a>
+<a href="https://pepy.tech/project/simplet5">
+        <img alt="Stats" src="https://static.pepy.tech/personalized-badge/simplet5?period=month&units=international_system&left_color=black&right_color=orange&left_text=downloads/month">
+    </a>
+<a href="https://opensource.org/licenses/MIT">
+        <img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+    </a>
+</p>
 
 
 **simpleT5** is built on top of PyTorch-lightning⚡️ and Transformers🤗 that lets you quickly train your T5 models.
