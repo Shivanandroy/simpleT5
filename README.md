@@ -1,8 +1,8 @@
 <img align="center" src="data/simplet5.png" alt="simpleT5">
 
 <p align="center">
-<h2 style="text-align:center; font-weight: bold">Quickly train T5 models in just 3 lines of code with ONNX inference
-</h2>
+<h3 style="text-align:center; font-weight: bold">Quickly train T5 models in just 3 lines of code with ONNX inference
+</h3>
 </p>
 
 <p align="center">
