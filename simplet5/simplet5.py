@@ -435,7 +435,7 @@ class SimpleT5:
         input_ids = self.tokenizer.encode(
             source_text, return_tensors="pt", add_special_tokens=True
         )
-
+        input_ids = input_ids.to(self.device)
         generated_ids = self.model.generate(
             input_ids=input_ids,
             num_beams=num_beams,
