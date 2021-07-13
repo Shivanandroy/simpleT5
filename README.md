@@ -6,9 +6,8 @@
 </p>
 
 <p align="center">
-<a href="https://badge.fury.io/py/simplet5">
-        <img alt="GitHub" src="https://badge.fury.io/py/simplet5.svg">
-    </a>
+<a href="https://badge.fury.io/py/simplet5"><img src="https://badge.fury.io/py/simplet5.svg" alt="PyPI version" height="18"></a>
+
 <a href="https://badge.fury.io/py/simplet5">
         <img alt="Stars" src="https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue">
     </a>
