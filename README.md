@@ -1,11 +1,24 @@
-<img align="center" src="data/simplet5.png" alt="simpleT5">
+<img align="center" src="data/st5.png" alt="simpleT5">
 
-<h3 style="text-align:center; font-weight: bold">
- Quickly train T5 models in just 3 lines of code + ONNX support
-</h3>
+<p align="center">
+<b>Quickly train T5 models in just 3 lines of code with ONNX inference
+</b>
+</p>
 
-
-[![PyPI version](https://badge.fury.io/py/simplet5.svg)](https://badge.fury.io/py/simplet5)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+<p align="center">
+<a href="https://badge.fury.io/py/simplet5">
+        <img alt="GitHub" src="https://badge.fury.io/py/simplet5.svg">
+    </a>
+<a href="https://badge.fury.io/py/simplet5">
+        <img alt="Stars" src="https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue">
+    </a>
+<a href="https://pepy.tech/project/simplet5">
+        <img alt="Stats" src="https://static.pepy.tech/personalized-badge/simplet5?period=month&units=international_system&left_color=black&right_color=orange&left_text=downloads/month">
+    </a>
+<a href="https://opensource.org/licenses/MIT">
+        <img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+    </a>
+</p>
 
 
 **simpleT5** is built on top of PyTorch-lightning⚡️ and Transformers🤗 that lets you quickly train your T5 models.
@@ -55,3 +68,14 @@ model.convert_and_load_onnx_model("path/to/T5 model/directory")
 model.onnx_predict("input text for prediction")
 
 ```
+## Articles
+- [Geek Culture: simpleT5 — Train T5 Models in Just 3 Lines of Code](https://medium.com/geekculture/simplet5-train-t5-models-in-just-3-lines-of-code-by-shivanand-roy-2021-354df5ae46ba)
+- [Abstractive Summarization with SimpleT5⚡️](https://snrspeaks.medium.com/abstractive-summarization-with-simplet5-%EF%B8%8F-344a78f73265)
+- [Training T5 model in just 3 lines of Code with ONNX Inference](https://medium.com/mlearning-ai/training-t5-model-in-just-3-lines-of-code-with-onnx-inference-ff5b6678c757)
+- [Kaggle: simpleT5⚡️ -  Generating one line summary of papers](https://www.kaggle.com/mathurinache/simplet5-generating-one-line-summary-of-papers)
+- [Youtube: Abstractive Summarization Demo with SimpleT5](https://www.youtube.com/watch?v=jgKj-7v2UYU)
+
+## Acknowledgements
+- [Transformers by HuggingFace 🤗](https://huggingface.co/transformers/)
+- [Pytorch Lightning ⚡️](https://www.pytorchlightning.ai/)
+- [Fastt5](https://github.com/Ki6an/fastT5)
