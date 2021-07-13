@@ -42,8 +42,8 @@ from simplet5 import SimpleT5
 # instantiate
 model = SimpleT5()
 
-# load (supports t5, mt5, byt5)
-model.from_pretrained("t5","t5-base") # model.from_pretrained("byt5","google/byt5-base")
+# load
+model.from_pretrained("t5","t5-base")
 
 # train
 model.train(train_df=train_df, # pandas dataframe with 2 columns: source_text & target_text
@@ -54,8 +54,7 @@ model.train(train_df=train_df, # pandas dataframe with 2 columns: source_text & 
             max_epochs = 5,
             use_gpu = True,
             outputdir = "outputs",
-            early_stopping_patience_epochs = 0,
-            precision = 32
+            early_stopping_patience_epochs = 0
             )
 
 # load trained T5 model
