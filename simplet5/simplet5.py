@@ -300,6 +300,7 @@ class SimpleT5:
         use_gpu: bool = True,
         outputdir: str = "outputs",
         early_stopping_patience_epochs: int = 0,  # 0 to disable early stopping feature
+        precision=32
     ):
         """
         trains T5/MT5 model on custom dataset
@@ -314,6 +315,7 @@ class SimpleT5:
             use_gpu (bool, optional): if True, model uses gpu for training. Defaults to True.
             outputdir (str, optional): output directory to save model checkpoints. Defaults to "outputs".
             early_stopping_patience_epochs (int, optional): monitors val_loss on epoch end and stops training, if val_loss does not improve after the specied number of epochs. set 0 to disable early stopping. Defaults to 0 (disabled)
+            precision (int, optional): sets precision training - Double precision (64), full precision (32) or half precision (16). Defaults to 32.
         """
         self.target_max_token_len = target_max_token_len
         self.data_module = LightningDataModule(
@@ -362,6 +364,7 @@ class SimpleT5:
             max_epochs=max_epochs,
             gpus=gpus,
             progress_bar_refresh_rate=5,
+            precision=precision
         )
 
         trainer.fit(self.T5Model, self.data_module)
