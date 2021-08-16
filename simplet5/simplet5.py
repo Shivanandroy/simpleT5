@@ -9,7 +9,6 @@ from transformers import (
     PreTrainedTokenizer,
     T5TokenizerFast as T5Tokenizer,
     MT5TokenizerFast as MT5Tokenizer,
-    ByT5Tokenizer,
 )
 from transformers import AutoTokenizer
 from fastT5 import export_and_get_onnx_model
@@ -283,11 +282,11 @@ class SimpleT5:
             self.model = MT5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
-        elif model_type == "byt5":
-            self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_name}")
-            self.model = T5ForConditionalGeneration.from_pretrained(
-                f"{model_name}", return_dict=True
-            )
+        # elif model_type == "byt5":
+        #     self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_name}")
+        #     self.model = T5ForConditionalGeneration.from_pretrained(
+        #         f"{model_name}", return_dict=True
+        #     )
 
     def train(
         self,
@@ -300,7 +299,7 @@ class SimpleT5:
         use_gpu: bool = True,
         outputdir: str = "outputs",
         early_stopping_patience_epochs: int = 0,  # 0 to disable early stopping feature
-        precision=32
+        precision=32,
     ):
         """
         trains T5/MT5 model on custom dataset
@@ -364,7 +363,7 @@ class SimpleT5:
             max_epochs=max_epochs,
             gpus=gpus,
             progress_bar_refresh_rate=5,
-            precision=precision
+            precision=precision,
         )
 
         trainer.fit(self.T5Model, self.data_module)
@@ -386,9 +385,9 @@ class SimpleT5:
         elif model_type == "mt5":
             self.model = MT5ForConditionalGeneration.from_pretrained(f"{model_dir}")
             self.tokenizer = MT5Tokenizer.from_pretrained(f"{model_dir}")
-        elif model_type == "byt5":
-            self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
-            self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
+        # elif model_type == "byt5":
+        #     self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+        #     self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
 
         if use_gpu:
             if torch.cuda.is_available():

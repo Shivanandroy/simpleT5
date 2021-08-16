@@ -41,7 +41,7 @@ from simplet5 import SimpleT5
 # instantiate
 model = SimpleT5()
 
-# load (supports t5, mt5, byt5)
+# load (supports t5, mt5 models)
 model.from_pretrained("t5","t5-base")
 
 # train
