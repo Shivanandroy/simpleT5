@@ -248,7 +248,7 @@ class LightningModel(pl.LightningModule):
             torch.mean(torch.stack([x["loss"] for x in training_step_outputs])).item(),
             4,
         )
-        path = f"{self.outputdir}/SimpleT5-epoch-{self.current_epoch}-train-loss-{str(avg_traning_loss)}"
+        path = f"{self.outputdir}/simplet5-epoch-{self.current_epoch}-train-loss-{str(avg_traning_loss)}"
         self.tokenizer.save_pretrained(path)
         self.model.save_pretrained(path)
 
