@@ -1,10 +1,9 @@
 <img align="center" src="data/st5.png" alt="simpleT5">
 
 <p align="center">
-<b>Quickly train T5 models in just 3 lines of code with ONNX inference
+<b>Quickly train T5/mT5/byT5 models in just 3 lines of code
 </b>
 </p>
-
 <p align="center">
 <a href="https://badge.fury.io/py/simplet5"><img src="https://badge.fury.io/py/simplet5.svg" alt="PyPI version" height="18"></a>
 
@@ -12,7 +11,7 @@
         <img alt="Stars" src="https://img.shields.io/github/stars/Shivanandroy/simpleT5?color=blue">
     </a>
 <a href="https://pepy.tech/project/simplet5">
-        <img alt="Stats" src="https://static.pepy.tech/personalized-badge/simplet5?period=month&units=international_system&left_color=black&right_color=orange&left_text=downloads/month">
+        <img alt="Stats" src="https://static.pepy.tech/personalized-badge/simplet5?period=total&units=international_system&left_color=black&right_color=brightgreen&left_text=Downloads">
     </a>
 <a href="https://opensource.org/licenses/MIT">
         <img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg">
@@ -41,7 +40,7 @@ from simplet5 import SimpleT5
 # instantiate
 model = SimpleT5()
 
-# load (supports t5, mt5 models)
+# load (supports t5, mt5, byT5 models)
 model.from_pretrained("t5","t5-base")
 
 # train
@@ -62,10 +61,6 @@ model.load_model("t5","path/to/trained/model/directory", use_gpu=False)
 
 # predict
 model.predict("input text for prediction")
-
-# need faster inference on CPU, get ONNX support
-model.convert_and_load_onnx_model("path/to/T5 model/directory")
-model.onnx_predict("input text for prediction")
 
 ```
 ## Articles
