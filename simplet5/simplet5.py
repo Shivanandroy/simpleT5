@@ -6,12 +6,14 @@ from transformers import (
     AdamW,
     T5ForConditionalGeneration,
     MT5ForConditionalGeneration,
+    ByT5Tokenizer,
     PreTrainedTokenizer,
     T5TokenizerFast as T5Tokenizer,
     MT5TokenizerFast as MT5Tokenizer,
 )
 from transformers import AutoTokenizer
-from fastT5 import export_and_get_onnx_model
+
+# from fastT5 import export_and_get_onnx_model
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoModelWithLMHead, AutoTokenizer
 import pytorch_lightning as pl
@@ -282,11 +284,11 @@ class SimpleT5:
             self.model = MT5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
-        # elif model_type == "byt5":
-        #     self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_name}")
-        #     self.model = T5ForConditionalGeneration.from_pretrained(
-        #         f"{model_name}", return_dict=True
-        #     )
+        elif model_type == "byt5":
+            self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_name}")
+            self.model = T5ForConditionalGeneration.from_pretrained(
+                f"{model_name}", return_dict=True
+            )
 
     def train(
         self,
@@ -385,9 +387,9 @@ class SimpleT5:
         elif model_type == "mt5":
             self.model = MT5ForConditionalGeneration.from_pretrained(f"{model_dir}")
             self.tokenizer = MT5Tokenizer.from_pretrained(f"{model_dir}")
-        # elif model_type == "byt5":
-        #     self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
-        #     self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
+        elif model_type == "byt5":
+            self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+            self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
 
         if use_gpu:
             if torch.cuda.is_available():
@@ -459,18 +461,18 @@ class SimpleT5:
         ]
         return preds
 
-    def convert_and_load_onnx_model(self, model_dir: str):
-        """ returns ONNX model """
-        self.onnx_model = export_and_get_onnx_model(model_dir)
-        self.onnx_tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    # def convert_and_load_onnx_model(self, model_dir: str):
+    #     """ returns ONNX model """
+    #     self.onnx_model = export_and_get_onnx_model(model_dir)
+    #     self.onnx_tokenizer = AutoTokenizer.from_pretrained(model_dir)
 
-    def onnx_predict(self, source_text: str):
-        """ generates prediction from ONNX model """
-        token = self.onnx_tokenizer(source_text, return_tensors="pt")
-        tokens = self.onnx_model.generate(
-            input_ids=token["input_ids"],
-            attention_mask=token["attention_mask"],
-            num_beams=2,
-        )
-        output = self.onnx_tokenizer.decode(tokens.squeeze(), skip_special_tokens=True)
-        return output
+    # def onnx_predict(self, source_text: str):
+    #     """ generates prediction from ONNX model """
+    #     token = self.onnx_tokenizer(source_text, return_tensors="pt")
+    #     tokens = self.onnx_model.generate(
+    #         input_ids=token["input_ids"],
+    #         attention_mask=token["attention_mask"],
+    #         num_beams=2,
+    #     )
+    #     output = self.onnx_tokenizer.decode(tokens.squeeze(), skip_special_tokens=True)
+    #     return output

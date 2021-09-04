@@ -8,7 +8,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setuptools.setup(
     name="simplet5",
-    version="0.1.2",
+    version="0.1.3",
     license="apache-2.0",
     author="Shivanand Roy",
     author_email="shivanandroy.official@gmail.com",
@@ -41,9 +41,10 @@ setuptools.setup(
     install_requires=[
         "sentencepiece",
         "torch>=1.7.0,!=1.8.0",  # excludes torch v1.8.0
-        "transformers==4.6.1",
-        "pytorch-lightning==1.3.3",
-        "fastt5==0.0.6",
+        "transformers==4.10.0",
+        "pytorch-lightning==1.4.5",
+        "tqdm"
+        # "fastt5==0.0.7",
     ],
     classifiers=[
         "Intended Audience :: Developers",
