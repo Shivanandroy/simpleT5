@@ -4,6 +4,7 @@ import pandas as pd
 from tqdm.auto import tqdm
 from transformers import (
     AdamW,
+    RobertaTokenizer,
     T5ForConditionalGeneration,
     MT5ForConditionalGeneration,
     ByT5Tokenizer,
@@ -286,6 +287,11 @@ class SimpleT5:
             )
         elif model_type == "byt5":
             self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_name}")
+            self.model = T5ForConditionalGeneration.from_pretrained(
+                f"{model_name}", return_dict=True
+            )
+        elif model_type == "codet5":
+            self.tokenizer = RobertaTokenizer.from_pretrained(f"{model_name}")
             self.model = T5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
