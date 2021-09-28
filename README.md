@@ -1,7 +1,7 @@
 <img align="center" src="data/st5.png" alt="simpleT5">
 
 <p align="center">
-<b>Quickly train T5/mT5/byT5 models in just 3 lines of code
+<b>Quickly train T5/mT5/byT5 and CodeT5 [NEW] models in just 3 lines of code
 </b>
 </p>
 <p align="center">
