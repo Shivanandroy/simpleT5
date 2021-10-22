@@ -105,6 +105,7 @@ class LightningDataModule(pl.LightningDataModule):
         batch_size: int = 4,
         source_max_token_len: int = 512,
         target_max_token_len: int = 512,
+        num_workers: int = 4,
     ):
         """
         initiates a PyTorch Lightning Data Module
@@ -125,6 +126,7 @@ class LightningDataModule(pl.LightningDataModule):
         self.tokenizer = tokenizer
         self.source_max_token_len = source_max_token_len
         self.target_max_token_len = target_max_token_len
+        self.num_workers = num_workers
 
     def setup(self, stage=None):
         self.train_dataset = PyTorchDataModule(
@@ -143,19 +145,19 @@ class LightningDataModule(pl.LightningDataModule):
     def train_dataloader(self):
         """ training dataloader """
         return DataLoader(
-            self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=2
+            self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=self.num_workers
         )
 
     def test_dataloader(self):
         """ test dataloader """
         return DataLoader(
-            self.test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=2
+            self.test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers
         )
 
     def val_dataloader(self):
         """ validation dataloader """
         return DataLoader(
-            self.test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=2
+            self.test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers
         )
 
 
@@ -302,6 +304,7 @@ class SimpleT5:
         outputdir: str = "outputs",
         early_stopping_patience_epochs: int = 0,  # 0 to disable early stopping feature
         precision=32,
+        num_workers: int = 4,
     ):
         """
         trains T5/MT5 model on custom dataset
@@ -317,6 +320,7 @@ class SimpleT5:
             outputdir (str, optional): output directory to save model checkpoints. Defaults to "outputs".
             early_stopping_patience_epochs (int, optional): monitors val_loss on epoch end and stops training, if val_loss does not improve after the specied number of epochs. set 0 to disable early stopping. Defaults to 0 (disabled)
             precision (int, optional): sets precision training - Double precision (64), full precision (32) or half precision (16). Defaults to 32.
+            num_workers (int, optional): sets amount of workers for PyTorch DataLoader/
         """
         self.target_max_token_len = target_max_token_len
         self.data_module = LightningDataModule(
@@ -326,6 +330,7 @@ class SimpleT5:
             batch_size=batch_size,
             source_max_token_len=source_max_token_len,
             target_max_token_len=target_max_token_len,
+            num_workers=num_workers,
         )
 
         self.T5Model = LightningModel(
