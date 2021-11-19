@@ -302,6 +302,7 @@ class SimpleT5:
         outputdir: str = "outputs",
         early_stopping_patience_epochs: int = 0,  # 0 to disable early stopping feature
         precision=32,
+        logger=None,
     ):
         """
         trains T5/MT5 model on custom dataset
@@ -317,6 +318,7 @@ class SimpleT5:
             outputdir (str, optional): output directory to save model checkpoints. Defaults to "outputs".
             early_stopping_patience_epochs (int, optional): monitors val_loss on epoch end and stops training, if val_loss does not improve after the specied number of epochs. set 0 to disable early stopping. Defaults to 0 (disabled)
             precision (int, optional): sets precision training - Double precision (64), full precision (32) or half precision (16). Defaults to 32.
+            logger (pytorch_lightning.loggers.base.LightningLoggerBase, optional): A logger object to pass in to the Trainer. Defaults to None (disabled).
         """
         self.target_max_token_len = target_max_token_len
         self.data_module = LightningDataModule(
@@ -360,7 +362,7 @@ class SimpleT5:
         gpus = 1 if use_gpu else 0
 
         trainer = pl.Trainer(
-            # logger=logger,
+            logger=logger,
             callbacks=early_stop_callback,
             max_epochs=max_epochs,
             gpus=gpus,
