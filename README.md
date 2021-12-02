@@ -20,7 +20,7 @@
 
 
 **simpleT5** is built on top of PyTorch-lightning⚡️ and Transformers🤗 that lets you quickly train your T5 models.
-> T5 models can be used for several NLP tasks such as summarization, QA, QG, translation, text generation, and more. 
+> T5 models can be used for several NLP tasks such as summarization, QA , QG , translation , text generation, and more. 
 
 
 Here's a link to [Medium article](https://snrspeaks.medium.com/simplet5-train-t5-models-in-just-3-lines-of-code-by-shivanand-roy-2021-354df5ae46ba) along with an [example colab notebook](https://colab.research.google.com/drive/1JZ8v9L0w0Ai3WbibTeuvYlytn0uHMP6O?usp=sharing) 
