@@ -27,6 +27,7 @@ Here's a link to [Medium article](https://snrspeaks.medium.com/simplet5-train-t5
 
 ## Install
 ```python
+# It's advisable to create a new python environment and install simplet5
 pip install --upgrade simplet5
 ```
 
