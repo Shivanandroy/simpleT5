@@ -8,8 +8,9 @@ from transformers import (
     PreTrainedTokenizer,
     T5TokenizerFast as T5Tokenizer,
     MT5TokenizerFast as MT5Tokenizer,
+    AutoTokenizer, 
+    LongT5ForConditionalGeneration
 )
-from transformers import AutoTokenizer
 from torch.optim import AdamW
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoModelWithLMHead, AutoTokenizer
@@ -311,6 +312,9 @@ class SimpleT5:
             self.model = T5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
+        elif model_type == 'longt5':
+            self.model = LongT5ForConditionalGeneration.from_pretrained(f"{model_name}")
+            self.tokenizer = AutoTokenizer.from_pretrained(f"{model_name}")
 
     def train(
         self,
@@ -413,6 +417,9 @@ class SimpleT5:
         elif model_type == "byt5":
             self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
             self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
+        elif model_type == 'longt5':
+            self.model = LongT5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+            self.tokenizer = AutoTokenizer.from_pretrained(f"{model_dir}")
 
         if use_gpu:
             if torch.cuda.is_available():
