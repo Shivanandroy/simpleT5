@@ -6,6 +6,7 @@ from transformers import (
     MT5ForConditionalGeneration,
     ByT5Tokenizer,
     PreTrainedTokenizer,
+    RobertaTokenizer,
     T5TokenizerFast as T5Tokenizer,
     MT5TokenizerFast as MT5Tokenizer,
 )
@@ -36,7 +37,7 @@ class PyTorchDataModule(Dataset):
         initiates a PyTorch Dataset Module for input data
         Args:
             data (pd.DataFrame): input pandas dataframe. Dataframe must have 2 column --> "source_text" and "target_text"
-            tokenizer (PreTrainedTokenizer): a PreTrainedTokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
+            tokenizer (PreTrainedTokenizer): a PreTrainedTokenizer (T5Tokenizer, MT5Tokenizer, ByT5Tokenizer, or RobertaTokenizer)
             source_max_token_len (int, optional): max token length of source text. Defaults to 512.
             target_max_token_len (int, optional): max token length of target text. Defaults to 512.
         """
@@ -106,7 +107,7 @@ class LightningDataModule(pl.LightningDataModule):
         Args:
             train_df (pd.DataFrame): training dataframe. Dataframe must contain 2 columns --> "source_text" & "target_text"
             test_df (pd.DataFrame): validation dataframe. Dataframe must contain 2 columns --> "source_text" & "target_text"
-            tokenizer (PreTrainedTokenizer): PreTrainedTokenizer (T5Tokenizer, MT5Tokenizer, or ByT5Tokenizer)
+            tokenizer (PreTrainedTokenizer): PreTrainedTokenizer (T5Tokenizer, MT5Tokenizer, ByT5Tokenizer, or RobertaTokenizer)
             batch_size (int, optional): batch size. Defaults to 4.
             source_max_token_len (int, optional): max token length of source text. Defaults to 512.
             target_max_token_len (int, optional): max token length of target text. Defaults to 512.
@@ -176,8 +177,8 @@ class LightningModel(pl.LightningModule):
         """
         initiates a PyTorch Lightning Model
         Args:
-            tokenizer : T5/MT5/ByT5 tokenizer
-            model : T5/MT5/ByT5 model
+            tokenizer : T5/MT5/ByT5/CodeT5 tokenizer
+            model : T5/MT5/ByT5/CodeT5 model
             outputdir (str, optional): output directory to save model checkpoints. Defaults to "outputs".
             save_only_last_epoch (bool, optional): If True, save just the last epoch else models are saved for every epoch
         """
@@ -311,6 +312,11 @@ class SimpleT5:
             self.model = T5ForConditionalGeneration.from_pretrained(
                 f"{model_name}", return_dict=True
             )
+        elif model_type =="codet5":
+            self.tokenizer = RobertaTokenizer.from_pretrained(f"{model_name}")
+            self.model = T5ForConditionalGeneration.from_pretrained(
+                f"{model_name}", return_dict=True
+            )
 
     def train(
         self,
@@ -413,6 +419,9 @@ class SimpleT5:
         elif model_type == "byt5":
             self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
             self.tokenizer = ByT5Tokenizer.from_pretrained(f"{model_dir}")
+        elif model_type =="codet5":
+            self.model = T5ForConditionalGeneration.from_pretrained(f"{model_dir}")
+            self.tokenizer = RobertaTokenizer.from_pretrained(f"{model_dir}")
 
         if use_gpu:
             if torch.cuda.is_available():

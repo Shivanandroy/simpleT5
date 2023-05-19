@@ -1,7 +1,7 @@
 <img align="center" src="data/st5.png" alt="simpleT5">
 
 <p align="center">
-<b>Quickly train T5/mT5/byT5 models in just 3 lines of code
+<b>Quickly train T5/mT5/byT5/CodeT5 models in just 3 lines of code
 </b>
 </p>
 <p align="center">
@@ -41,7 +41,7 @@ from simplet5 import SimpleT5
 # instantiate
 model = SimpleT5()
 
-# load (supports t5, mt5, byT5 models)
+# load (supports t5, mt5, byT5 and CodeT5 models)
 model.from_pretrained("t5","t5-base")
 
 # train
