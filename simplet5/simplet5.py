@@ -18,6 +18,7 @@ import pytorch_lightning as pl
 from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.callbacks.progress import TQDMProgressBar
+from typing import List, Union
 
 torch.cuda.empty_cache()
 pl.seed_everything(42)
@@ -435,7 +436,8 @@ class SimpleT5:
 
     def predict(
         self,
-        source_text: str,
+        source_text: Union[str, List[str]],
+        source_max_token_len: int = 512,
         max_length: int = 512,
         num_return_sequences: int = 1,
         num_beams: int = 2,
@@ -466,27 +468,59 @@ class SimpleT5:
         Returns:
             list[str]: returns predictions
         """
-        input_ids = self.tokenizer.encode(
-            source_text, return_tensors="pt", add_special_tokens=True
-        )
-        input_ids = input_ids.to(self.device)
-        generated_ids = self.model.generate(
-            input_ids=input_ids,
-            num_beams=num_beams,
-            max_length=max_length,
-            repetition_penalty=repetition_penalty,
-            length_penalty=length_penalty,
-            early_stopping=early_stopping,
-            top_p=top_p,
-            top_k=top_k,
-            num_return_sequences=num_return_sequences,
-        )
-        preds = [
-            self.tokenizer.decode(
-                g,
+        if isinstance(source_text, str):
+            input_ids = self.tokenizer.encode(
+                source_text, return_tensors="pt", add_special_tokens=True
+            )
+            input_ids = input_ids.to(self.device)
+            generated_ids = self.model.generate(
+                input_ids=input_ids,
+                num_beams=num_beams,
+                max_length=max_length,
+                repetition_penalty=repetition_penalty,
+                length_penalty=length_penalty,
+                early_stopping=early_stopping,
+                top_p=top_p,
+                top_k=top_k,
+                num_return_sequences=num_return_sequences,
+                do_sample=do_sample,
+            )
+            preds = [
+                self.tokenizer.decode(
+                    g,
+                    skip_special_tokens=skip_special_tokens,
+                    clean_up_tokenization_spaces=clean_up_tokenization_spaces,
+                ) for g in generated_ids
+            ]
+            return preds
+        elif isinstance(source_text, list):
+            source_text_encoding = self.tokenizer(
+                source_text,
+                max_length=source_max_token_len,
+                padding="max_length",
+                truncation=True,
+                return_attention_mask=True,
+                add_special_tokens=True,
+                return_tensors="pt",
+            )
+            input_ids = source_text_encoding["input_ids"].to(self.device)
+            attention_mask = source_text_encoding["attention_mask"].to(self.device)
+            generated_ids = self.model.generate(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+                num_beams=num_beams,
+                max_length=max_length,
+                repetition_penalty=repetition_penalty,
+                length_penalty=length_penalty,
+                early_stopping=early_stopping,
+                top_p=top_p,
+                top_k=top_k,
+                num_return_sequences=num_return_sequences,
+                do_sample=do_sample,
+            )
+            preds = self.tokenizer.batch_decode(
+                generated_ids,
                 skip_special_tokens=skip_special_tokens,
                 clean_up_tokenization_spaces=clean_up_tokenization_spaces,
             )
-            for g in generated_ids
-        ]
-        return preds
+            return preds
